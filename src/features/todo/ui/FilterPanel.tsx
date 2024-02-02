@@ -6,20 +6,25 @@ import { IoMdClose } from "react-icons/io";
 interface Props {
     onDelete: () => void;
     onFilter: () => void;
+    onSort: () => void;
     filter: TodoStatus | "";
+    sort: TodoStatus | "";
     clearFilter: () => void;
-    // onSort: () => void;
+    clearSort: () => void;
 }
 
 export const FilterPanel: FC<Props> = ({
     onFilter,
     onDelete,
     filter,
-    clearFilter
+    clearFilter,
+    sort,
+    onSort,
+    clearSort
 }) => {
     return (
         <div className="mb-5 flex justify-between items-center">
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-2 items-center">
                 {
                     filter && (
                         <span id="badge-dismiss-default" className="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-blue-800 bg-blue-100 rounded">
@@ -38,6 +43,24 @@ export const FilterPanel: FC<Props> = ({
                         </span>
                     )
                 }
+                {
+                    sort && (
+                        <span id="badge-dismiss-default" className="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-green-800 bg-green-100 rounded">
+                            {
+                                sort === TodoStatus.Completed
+                                    ? "Completed first"
+                                    : "InCompleted first"
+                            }
+                            <button
+                                type="button"
+                                className="inline-flex items-center p-1 ms-2 text-sm text-green-400 bg-transparent rounded-sm hover:bg-green-200 hover:text-green-900"
+                                onClick={clearSort}
+                            >
+                                <IoMdClose />
+                            </button>
+                        </span>
+                    )
+                }
             </div>
             <div className="flex gap-3">
                 <button 
@@ -50,7 +73,8 @@ export const FilterPanel: FC<Props> = ({
                 </button>
                 <button 
                     className="flex gap-2 items-center text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto p-2.5 text-center"
-                    title="Sort by status"    
+                    title="Sort by status"   
+                    onClick={onSort} 
                 >
                     <FaSort />
                     <span>Sort</span>

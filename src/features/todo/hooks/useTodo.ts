@@ -24,6 +24,7 @@ export const useTodo = () => {
     const [tasks, setTasks] = useState<ITask[]>(getFromStore());
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filter, setFilter] = useState<TodoStatus | null>(null);
+    const [sort, setSort] = useState<TodoStatus | null>(null)
 
     const saveTasks = (tasks: ITask[]) => {
         setTasks(tasks);
@@ -117,6 +118,33 @@ export const useTodo = () => {
         closeModal();
     }
 
+    const sortByStatus = (status: TodoStatus | "") => {
+        if(status === '') {
+            setSort(null);
+            saveTasks(getFromStore());
+        } else {
+            const isCompleted = TodoStatus.Completed === status;
+    
+            const _tasks = getFromStore()
+                .sort((a, b) => {
+                    if (a.isCompleted === b.isCompleted) {
+                        return 0;
+                    }
+                
+                    if (isCompleted) {
+                        return a.isCompleted ? -1 : 1;
+                    } else {
+                        return a.isCompleted ? 1 : -1;
+                    }
+                });
+                
+    
+            setTasks(_tasks);
+            setSort(status)
+        }
+        closeModal();
+    }
+
     return {
         isModalOpen,
         tasks,
@@ -128,6 +156,8 @@ export const useTodo = () => {
         searchTask,
         deleteAll,
         filter,
-        filterByStatus
+        filterByStatus,
+        sort,
+        sortByStatus
     }
 }

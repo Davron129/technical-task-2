@@ -7,6 +7,7 @@ import { TaskList } from "./TaskList"
 import { SearchBar } from "./SearchBar"
 import { FilterPanel } from "./FilterPanel"
 import { FilterModal } from "./FilterModal"
+import { SortModal } from "./SortModal"
 
 export const Todo = () => {
     const {
@@ -18,7 +19,9 @@ export const Todo = () => {
         searchTask,
         deleteAll,
         filter,
-        filterByStatus
+        filterByStatus,
+        sort,
+        sortByStatus
     } = useTodo();
     const { openModal, closeModal } = useModal();
 
@@ -76,6 +79,16 @@ export const Todo = () => {
         )
     }
 
+    const handleSortByStatus = () => {
+        openModal(
+            <SortModal 
+                onClose={closeModal}
+                title="Sort"
+                onSort={sortByStatus}
+            />
+        )
+    }
+
     return (
         <>
             <span className="text-2xl font-semibold">To Do List</span>
@@ -85,6 +98,9 @@ export const Todo = () => {
             <FilterPanel 
                 filter={filter ?? ""}
                 clearFilter={() => filterByStatus("")}
+                sort={sort ?? ""}
+                clearSort={() => sortByStatus("")}
+                onSort={handleSortByStatus}
                 onDelete={handleDeleteAll}
                 onFilter={handleFilterByStatus}
             />
