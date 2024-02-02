@@ -1,31 +1,21 @@
-# React + TypeScript + Vite
+# Task description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Create a React application for managing a simple to-do list. The application should have the following features:
+Task List:
+- Display a list of tasks with each task having a title, added time and a status (completed or not).
+- Each task should have an option to mark it as completed or not.
+- Include an option to delete and edit a task.
+Task Form:
+- Include a form with input fields to add a new task. The form should have fields for the task title only.
+- When a new task is added, it should appear in the task list.
+Data Persistence:
+- Implement a way to persist tasks so that they remain even when the page is refreshed. You can use (REDUX PERSIST or LOCALSTORAGE) for this purpose.
+Styling:
+- Apply some styling to make the task list and form visually appealing.
+Advanced Feature:
+- Implement a filter or sorting functionality to filter tasks based on their status (completed or not).
+- Delete all tasks functionality
+- Add searching task functionality which should be elastic search
+- Each functionality should use modals in react portals
+OPTIMISE YOUR CODE AND FOLDER STRUCTURE BEFORE SUBMITTING. YOU  CAN HOST YOUR APPLICATION IN VERCER OR NETLIFY. USE BEST APPROACHES AS POSSIBLE.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# technical-task-2
