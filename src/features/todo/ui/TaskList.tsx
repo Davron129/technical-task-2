@@ -29,7 +29,7 @@ export const TaskList: FC<Props> = ({ tasks, onEdit, onDelete, toggleComplete })
                                             { task.title }
                                         </p>
                                     </label>
-                                    <span>{ task.createdAt }</span>
+                                    <span className="text-xs text-gray-700 truncate">{ task.createdAt }</span>
                                     <a
                                         href="#"
                                         onClick={() => onEdit(task)} 

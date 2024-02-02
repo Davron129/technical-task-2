@@ -7,7 +7,14 @@ import { TaskList } from "./TaskList"
 import { SearchBar } from "./SearchBar"
 
 export const Todo = () => {
-    const { tasks, handleAdd, handleEdit, handleDelete, toggleComplete } = useTodo();
+    const {
+        tasks,
+        handleAdd,
+        handleEdit,
+        handleDelete,
+        toggleComplete,
+        searchTask
+    } = useTodo();
     const { openModal, closeModal } = useModal();
 
     const handleAddTask = () => {
@@ -49,7 +56,7 @@ export const Todo = () => {
         <>
             <span className="text-2xl font-semibold">To Do List</span>
 
-            <SearchBar />
+            <SearchBar onSearch={searchTask} />
 
             <TaskList
                 tasks={tasks}

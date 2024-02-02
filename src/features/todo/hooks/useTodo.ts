@@ -81,6 +81,20 @@ export const useTodo = () => {
         saveTasks(_tasks);
     }
 
+    const searchTask = (query: string) => {
+        const words = query.toLowerCase().split(' ');
+
+        if(!query) {
+            setTasks(getFromStore());
+        } else {
+            const _tasks = tasks.filter((task) => {
+                return words.every((word) => task.title.toLowerCase().includes(word))
+            });
+    
+            setTasks(_tasks);
+        }
+    }
+
     return {
         isModalOpen,
         tasks,
@@ -88,6 +102,7 @@ export const useTodo = () => {
         handleEdit,
         handleDelete,
         handleClickAddTask,
-        toggleComplete
+        toggleComplete,
+        searchTask
     }
 }
