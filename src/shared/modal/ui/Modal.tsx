@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react"
 
-interface ModalProps {
+export interface ModalProps {
     title: string;
     onClose: () => void
 }

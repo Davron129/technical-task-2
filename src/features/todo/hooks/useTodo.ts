@@ -19,8 +19,8 @@ const saveToStore = (tasks: ITask[]) => {
 }
 
 export const useTodo = () => {
-    const [tasks, setTasks] = useState<ITask[]>(getFromStore());
     const { closeModal } = useModal();
+    const [tasks, setTasks] = useState<ITask[]>(getFromStore());
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const saveTasks = (tasks: ITask[]) => {
@@ -95,6 +95,11 @@ export const useTodo = () => {
         }
     }
 
+    const deleteAll = () => {
+        saveTasks([]);
+        closeModal();
+    }
+
     return {
         isModalOpen,
         tasks,
@@ -103,6 +108,7 @@ export const useTodo = () => {
         handleDelete,
         handleClickAddTask,
         toggleComplete,
-        searchTask
+        searchTask,
+        deleteAll
     }
 }

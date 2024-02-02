@@ -1,10 +1,11 @@
-import { Modal } from "@shared/modal"
+import { ConfirmModal, Modal } from "@shared/modal"
 import { useModal } from "@shared/hooks"
 import { ITask } from "../types"
 import { useTodo } from "../hooks"
 import { TaskForm } from "./TaskForm"
 import { TaskList } from "./TaskList"
 import { SearchBar } from "./SearchBar"
+import { FilterPanel } from "./FilterPanel"
 
 export const Todo = () => {
     const {
@@ -13,7 +14,8 @@ export const Todo = () => {
         handleEdit,
         handleDelete,
         toggleComplete,
-        searchTask
+        searchTask,
+        deleteAll
     } = useTodo();
     const { openModal, closeModal } = useModal();
 
@@ -50,13 +52,26 @@ export const Todo = () => {
         )
     }
 
-
+    const handleDeleteAll = () => {
+        openModal(
+            <ConfirmModal
+                onClose={closeModal}
+                title="Confirm"
+                confirmationText="Do you want to delete all tasks?"
+                onConfirm={deleteAll}
+            />
+        )
+    }
 
     return (
         <>
             <span className="text-2xl font-semibold">To Do List</span>
 
             <SearchBar onSearch={searchTask} />
+
+            <FilterPanel 
+                onDelete={handleDeleteAll}
+            />
 
             <TaskList
                 tasks={tasks}
@@ -68,7 +83,7 @@ export const Todo = () => {
             <div className="flex mt-5 justify-end">
                 <button 
                     onClick={handleAddTask}
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
                 >
                     Add Task
                 </button>
