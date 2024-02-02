@@ -15,7 +15,7 @@ export const TaskList: FC<Props> = ({ tasks, onEdit, onDelete, toggleComplete })
                 {
                     tasks.length > 0 ? (
                         tasks.map((task) => (
-                            <li className="py-3 sm:py-4" key={task.createdAt}>
+                            <li className="py-3 sm:py-4" key={task.id}>
                                 <div className="flex items-center gap-3">
                                     <label
                                         className="flex gap-2 flex-1 min-w-0 cursor-pointer" 
@@ -29,6 +29,7 @@ export const TaskList: FC<Props> = ({ tasks, onEdit, onDelete, toggleComplete })
                                             { task.title }
                                         </p>
                                     </label>
+                                    <span>{ task.createdAt }</span>
                                     <a
                                         href="#"
                                         onClick={() => onEdit(task)} 

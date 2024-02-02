@@ -29,11 +29,13 @@ export const useTodo = () => {
     }
 
     const handleAdd = (title: string) => {
+        const now = Date.now();
+        
         saveTasks([
             ...tasks,
             {
-                id: Date.now(),
-                createdAt: String(Date.now()),
+                id: now,
+                createdAt: new Date(now).toLocaleDateString('ru') + " " + new Date(now).toLocaleTimeString('ru'),
                 isCompleted: false,
                 title: title
             }
