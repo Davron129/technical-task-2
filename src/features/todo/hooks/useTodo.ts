@@ -34,6 +34,12 @@ export const useTodo = () => {
         closeModal();
     }
 
+    const handleDelete = (taskId: number) => {
+        const _tasks = tasks.filter((t) => t.id !== taskId);
+
+        setTasks(_tasks);
+    }
+
     const handleClickAddTask = () => {
         setIsModalOpen(true);
     }
@@ -43,6 +49,7 @@ export const useTodo = () => {
         tasks,
         handleAdd,
         handleEdit,
+        handleDelete,
         handleClickAddTask
     }
 }

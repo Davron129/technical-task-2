@@ -7,7 +7,7 @@ import { useModal } from "@shared/hooks"
 import { ITask } from "../types"
 
 export const Todo = () => {
-    const { tasks, handleAdd, handleEdit } = useTodo();
+    const { tasks, handleAdd, handleEdit, handleDelete } = useTodo();
     const { openModal, closeModal } = useModal();
 
     const handleAddTask = () => {
@@ -55,7 +55,7 @@ export const Todo = () => {
                 </button>
             </div>
 
-            <TaskList tasks={tasks} onEdit={handleEditTask} />
+            <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleDelete} />
 
             <div className="flex mt-5 justify-end">
                 <button 

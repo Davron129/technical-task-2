@@ -3,10 +3,11 @@ import { ITask } from "../types"
 
 interface Props {
     tasks: ITask[];
-    onEdit: (value: ITask) => void
+    onEdit: (value: ITask) => void;
+    onDelete: (id: number) => void;
 }
 
-export const TaskList: FC<Props> = ({ tasks, onEdit }) => {
+export const TaskList: FC<Props> = ({ tasks, onEdit, onDelete }) => {
     return (
         <div className="p-4 bg-white border border-gray-200 rounded-lg shadow">
             <ul role="list" className="divide-y divide-gray-200">
@@ -23,7 +24,7 @@ export const TaskList: FC<Props> = ({ tasks, onEdit }) => {
                                         </p>
                                     </div>
                                     <a href="#" onClick={() => onEdit(task)} className="text-sm text-blue-600 hover:underline">Edit</a>
-                                    <a href="#" className="text-sm text-red-600 hover:underline">Delete</a>
+                                    <a href="#" onClick={() => onDelete(task.id as number)} className="text-sm text-red-600 hover:underline">Delete</a>
                                 </div>
                             </li>
                         ))
