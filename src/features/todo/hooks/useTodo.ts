@@ -2,13 +2,34 @@ import { useState } from "react"
 import { ITask } from "../types";
 import { useModal } from "@shared/hooks";
 
+const TASKS_KEY = 'tasks';
+
+const getFromStore = (): ITask[] => {
+    const tasks = localStorage.getItem(TASKS_KEY);
+
+    if(tasks) {
+        return JSON.parse(tasks);
+    }
+
+    return [];
+}
+
+const saveToStore = (tasks: ITask[]) => {
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+}
+
 export const useTodo = () => {
-    const [tasks, setTasks] = useState<ITask[]>([]);
+    const [tasks, setTasks] = useState<ITask[]>(getFromStore());
     const { closeModal } = useModal();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const saveTasks = (tasks: ITask[]) => {
+        setTasks(tasks);
+        saveToStore(tasks);
+    }
+
     const handleAdd = (title: string) => {
-        setTasks([
+        saveTasks([
             ...tasks,
             {
                 id: Date.now(),
@@ -29,7 +50,7 @@ export const useTodo = () => {
             return t;
         });
 
-        setTasks(_tasks);
+        saveTasks(_tasks);
 
         closeModal();
     }
@@ -37,7 +58,7 @@ export const useTodo = () => {
     const handleDelete = (taskId: number) => {
         const _tasks = tasks.filter((t) => t.id !== taskId);
 
-        setTasks(_tasks);
+        saveTasks(_tasks);
     }
 
     const handleClickAddTask = () => {
@@ -55,7 +76,7 @@ export const useTodo = () => {
             return t;
         });
 
-        setTasks(_tasks);
+        saveTasks(_tasks);
     }
 
     return {
