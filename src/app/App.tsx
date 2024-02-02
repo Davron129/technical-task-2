@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { Todo } from "@features/todo/ui"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-     
+      <div className="mx-auto max-w-2xl py-5">
+        <Todo />
+      </div>
     </>
   )
 }
