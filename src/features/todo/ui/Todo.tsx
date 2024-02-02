@@ -6,6 +6,7 @@ import { TaskForm } from "./TaskForm"
 import { TaskList } from "./TaskList"
 import { SearchBar } from "./SearchBar"
 import { FilterPanel } from "./FilterPanel"
+import { FilterModal } from "./FilterModal"
 
 export const Todo = () => {
     const {
@@ -15,7 +16,9 @@ export const Todo = () => {
         handleDelete,
         toggleComplete,
         searchTask,
-        deleteAll
+        deleteAll,
+        filter,
+        filterByStatus
     } = useTodo();
     const { openModal, closeModal } = useModal();
 
@@ -63,6 +66,16 @@ export const Todo = () => {
         )
     }
 
+    const handleFilterByStatus = () => {
+        openModal(
+            <FilterModal 
+                onClose={closeModal}
+                title="Filter"
+                onFilter={filterByStatus}
+            />
+        )
+    }
+
     return (
         <>
             <span className="text-2xl font-semibold">To Do List</span>
@@ -70,7 +83,10 @@ export const Todo = () => {
             <SearchBar onSearch={searchTask} />
 
             <FilterPanel 
+                filter={filter ?? ""}
+                clearFilter={() => filterByStatus("")}
                 onDelete={handleDeleteAll}
+                onFilter={handleFilterByStatus}
             />
 
             <TaskList

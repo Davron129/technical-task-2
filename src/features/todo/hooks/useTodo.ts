@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ITask } from "../types";
 import { useModal } from "@shared/hooks";
+import { TodoStatus } from "../enums";
 
 const TASKS_KEY = 'tasks';
 
@@ -22,6 +23,7 @@ export const useTodo = () => {
     const { closeModal } = useModal();
     const [tasks, setTasks] = useState<ITask[]>(getFromStore());
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [filter, setFilter] = useState<TodoStatus | null>(null);
 
     const saveTasks = (tasks: ITask[]) => {
         setTasks(tasks);
@@ -100,6 +102,21 @@ export const useTodo = () => {
         closeModal();
     }
 
+    const filterByStatus = (status: TodoStatus | "") => {
+        if(status === '') {
+            setFilter(null);
+            saveTasks(getFromStore());
+        } else {
+            const isCompleted = TodoStatus.Completed === status;
+    
+            const _tasks = getFromStore().filter((task) => task.isCompleted === isCompleted)
+    
+            setTasks(_tasks);
+            setFilter(status)
+        }
+        closeModal();
+    }
+
     return {
         isModalOpen,
         tasks,
@@ -109,6 +126,8 @@ export const useTodo = () => {
         handleClickAddTask,
         toggleComplete,
         searchTask,
-        deleteAll
+        deleteAll,
+        filter,
+        filterByStatus
     }
 }
