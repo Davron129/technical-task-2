@@ -7,14 +7,14 @@ export const useTodo = () => {
     const { closeModal } = useModal();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleAdd = (payload: ITask) => {
+    const handleAdd = (title: string) => {
         setTasks([
             ...tasks,
             {
                 id: Date.now(),
                 createdAt: String(Date.now()),
                 isCompleted: false,
-                title: payload.title
+                title: title
             }
         ]);
 
@@ -24,9 +24,9 @@ export const useTodo = () => {
     const handleEdit = (payload: ITask) => {
         const _tasks = tasks.map((t) => {
             if(t.id === payload.id) {
-                return payload
+                return payload;
             }
-            return t
+            return t;
         });
 
         setTasks(_tasks);
@@ -44,12 +44,27 @@ export const useTodo = () => {
         setIsModalOpen(true);
     }
 
+    const toggleComplete = (taskId: number) => {
+        const _tasks = tasks.map((t) => {
+            if(t.id === taskId) {
+                return {
+                    ...t,
+                    isCompleted: !t.isCompleted
+                }
+            }
+            return t;
+        });
+
+        setTasks(_tasks);
+    }
+
     return {
         isModalOpen,
         tasks,
         handleAdd,
         handleEdit,
         handleDelete,
-        handleClickAddTask
+        handleClickAddTask,
+        toggleComplete
     }
 }

@@ -3,20 +3,20 @@ import { ITask } from "../types";
 
 
 interface Props {
-    payload: ITask;
-    onSubmit: (values: ITask) => void,
+    taskTitle: ITask['title'];
+    onSubmit: (title: ITask['title']) => void,
 }
 
 export const TaskForm: FC<Props> = ({
-    payload,
+    taskTitle,
     onSubmit
 }) => {
-    const [title, setTitle] = useState(payload ? payload.title : "");
+    const [title, setTitle] = useState(taskTitle);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        onSubmit({ ...payload, title });
+        onSubmit(title);
     }
 
     return (

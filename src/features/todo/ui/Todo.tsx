@@ -1,13 +1,13 @@
-import { SearchBar } from "./SearchBar"
-import { TaskList } from "./TaskList"
 import { Modal } from "@shared/modal"
-import { TaskForm } from "./TaskForm"
-import { useTodo } from "../hooks"
 import { useModal } from "@shared/hooks"
 import { ITask } from "../types"
+import { useTodo } from "../hooks"
+import { TaskForm } from "./TaskForm"
+import { TaskList } from "./TaskList"
+import { SearchBar } from "./SearchBar"
 
 export const Todo = () => {
-    const { tasks, handleAdd, handleEdit, handleDelete } = useTodo();
+    const { tasks, handleAdd, handleEdit, handleDelete, toggleComplete } = useTodo();
     const { openModal, closeModal } = useModal();
 
     const handleAddTask = () => {
@@ -18,9 +18,7 @@ export const Todo = () => {
             >
                 <TaskForm
                     onSubmit={handleAdd}
-                    payload={{
-                        title: ""
-                    }}
+                    taskTitle=""
                 />
             </Modal>
         )
@@ -33,8 +31,13 @@ export const Todo = () => {
                 onClose={closeModal}    
             >
                 <TaskForm
-                    onSubmit={handleEdit}
-                    payload={task}
+                    onSubmit={(title) => {
+                        handleEdit({
+                            ...task,
+                            title
+                        })
+                    }}
+                    taskTitle={task.title}
                 />
             </Modal>
         )
@@ -51,11 +54,16 @@ export const Todo = () => {
                 <button
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                    Submit
+                    Search
                 </button>
             </div>
 
-            <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleDelete} />
+            <TaskList
+                tasks={tasks}
+                onEdit={handleEditTask}
+                onDelete={handleDelete} 
+                toggleComplete={toggleComplete}
+            />
 
             <div className="flex mt-5 justify-end">
                 <button 
